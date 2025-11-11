@@ -1,0 +1,1004 @@
+1. FizzBuzz Variation
+Print numbers from 1 to n, but replace multiples of 3 with "Fizz", 5 with "Buzz", and both with
+"FizzBuzz".
+ 
+public class FizzBuzz {
+    public static void main(String[] args) {
+        int n = 30;
+ 
+        for (int i = 1; i <= n; i++) {
+ 
+            if (i % 3 == 0 && i % 5 == 0)
+                System.out.print("FizzBuzz");
+            else if (i % 3 == 0)
+                System.out.print("Fizz");
+            else if (i % 5 == 0)
+                System.out.print("Buzz");
+            else
+                System.out.print(i);
+        }
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2. Prime Number Checker
+Check if a given number is prime. If not, list its factors.
+ 
+public class PrimeNumberCheckher {
+ 
+    public static boolean isPrime(int no) {
+ 
+        if (no <= 1) {
+            return false;
+        }
+ 
+        for (int i = 2; i < no; i++) {
+            if (no % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+ 
+    public static void FindFactors(int no) {
+ 
+        for (int i = 1; i <= no; i++) {
+            if (no % i == 0)
+                System.out.println(i);
+        }
+    }
+ 
+    public static void main(String[] args) {
+        int no = 12;
+ 
+        if (isPrime(no)) {
+            System.out.println("Prime");
+        } else {
+            System.out.println("Not Prine");
+            FindFactors(no);
+        }
+    }
+}
+ 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. Sum of Digits Until Single Digit
+Keep summing the digits of a number until a single-digit result is obtained.
+ 
+public class SumDigit3 {
+	static int singleDigit(int n) {
+        int sum = 0;
+ 
+        // Repetitively calculate sum until
+        // it becomes single digit
+        while (n > 0 || sum > 9) {
+ 
+            // If n becomes 0, reset it to sum
+            // and start a new iteration.
+            if (n == 0) {
+                n = sum;
+                sum = 0;
+            }
+ 
+            sum += n % 10;
+            n /= 10;
+        }
+        return sum;
+    }
+ 
+    public static void main(String[] args) {
+        int n = 1234;
+        System.out.println(singleDigit(n));
+    }
+ 
+}
+ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4. Reverse a Number and Check Palindrome
+Reverse an integer and check if it’s a palindrome.
+ 
+public class CheckPalindrome {
+ 
+    public static boolean checkPalindrome(int no) {
+        int reverse = 0;
+        int temp = no;
+ 
+       //reverse the number
+        while (no != 0) {
+            int rem = no % 10;
+            reverse = reverse * 10 + rem;
+            no = no / 10;
+        }
+ 
+        System.out.println("Reverse : " + reverse);
+ 
+        if (reverse == temp) {
+            return true;
+        } else {
+            return false;
+        }
+ 
+    }
+ 
+    public static void main(String[] args) {
+        if (checkPalindrome(1221))
+            System.out.println("Palindrome Number");
+        else
+            System.out.println("Not Palindrome");
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5. Find GCD and LCM of Two Numbers
+Use loops and conditionals to compute both GCD and LCM
+ 
+public class GCD_LCM {
+ 
+    public static int findGCD(int no1, int no2) {
+        int result = 0;
+ 
+        for (int i = 1; i <= no1; i++) {
+            if (no1 % i == 0 && no2 % i == 0)
+                result = i;
+        }
+        return result;
+    }
+ 
+    public static int findLCM(int no1, int no2) {
+        int result = (no1 * no2) / findGCD(no1, no2);
+        return result;
+    }
+ 
+    public static void main(String[] args) {
+        int no1 = 12;
+        int no2 = 18;
+ 
+        System.out.println(findGCD(no1, no2));
+        System.out.println(findLCM(no1, no2));
+    }
+}
+ 
+==============================================================================================================================================================================
+6. Second Largest Element in Array
+Find the second largest number in an array without sorting.
+ 
+public class secondLargest6 {
+ 
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//FInd Second Largest element
+		int[] arr2 = {1,2,4,5,9,61,6,6};
+		System.out.println(Arrays.toString(arr2));
+		
+		//Step 1: sort the array
+		Arrays.sort(arr2);
+		System.out.println(Arrays.toString(arr2));
+		int n = arr2.length;
+		int ans = 0;
+		for(int i=0;i<n;i++) {
+			if(arr2[i] != arr2[n-1]) {//arr[n-1] denotes last element i.e largest element
+				ans = arr2[i];
+			}
+		}
+		System.out.println("Second Largest:"+ans);
+ 
+	}
+
+//optimal SOlution without sorting the array
+// Function to find the second largest element in the array
+    static int getSecondLargest(int[] arr) {
+        int n = arr.length;
+ 
+        int largest = -1, secondLargest = -1;
+ 
+        // Finding the largest element
+        for (int i = 0; i < n; i++) {
+            if (arr[i] > largest)
+                largest = arr[i];
+        }
+ 
+        // Finding the second largest element
+        for (int i = 0; i < n; i++) {
+            
+            // Update second largest if the current element is greater
+            // than second largest and not equal to the largest
+            if (arr[i] > secondLargest && arr[i] != largest) {
+                secondLargest = arr[i];
+            }
+        }
+        return secondLargest;
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+7. Remove Duplicates from Array
+Remove duplicate elements from an integer array.
+ 
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 2, 3, 4, 4, 4, 5, 5};
+        int newSize = removeDuplicates(arr);
+ 
+        for (int i = 0; i < newSize; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+    
+    //USE this
+	static int removeDuplicates(int[] arr) {
+        int n = arr.length;
+        if (n <= 1)
+            return n;
+		
+      	// Start from the second element (to check if previous element is euqal to current element if it becomes next element to prevoious
+        int idx = 1;
+        for (int i = 1; i < n; i++) {
+            if (arr[i] != arr[i - 1]) {   
+                arr[idx] = arr[i];   //this moves the current elemet if not equal to previos
+                idx++;
+            }
+        }
+        return idx;   //returns inde of new array
+    }
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+8. Rotate Array by k Positions
+Rotate an array to the right by k positions.
+ 
+	public static void main(String[] args) {
+			// TODO Auto-generated method stub
+			
+//		https://www.youtube.com/watch?v=Z7_nMTHROZo
+		//FInd Second Largest element
+			int[] arr = {1,2,4,5,9,61,6,6};
+			System.out.println(Arrays.toString(arr));
+			int k = 2;
+			
+			int n = arr.length;
+			//Step 1: create a new array
+			int[] arr1 = new int[n];
+			
+			rotate(arr,k,arr1);
+ 
+			System.out.println("Rotated Array:");
+			System.out.println(Arrays.toString(arr1));
+			
+	}
+	
+	static void rotate(int[] arr,int k,int[] arr1) {
+		int n = arr.length;
+		
+		for(int i=0;i<n;i++) {
+			//Best Approach because we move by k position we have to move last elemnts to k+1,k+2 ....
+			// so we know anynumber%n  gives number range 0 to n-1;
+			// and array index is from  0 to n-1 similarity
+			// we have to by k number so we move elemtns k+1 , k + 2
+			//so n-1 elemtn moves n-1+k , n-1+k+1 .
+			//but no array space so (if (k+i)  element move by kth position
+			// (k+i)%n  will rotate array and move that numer to kth elemtn from start
+ 
+			arr1[(i+k)%n] = arr[i];   //approach
+		}
+	}
+ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+9. Find Missing Number in Sequence
+Given an array of n-1 numbers from 1 to n, find the missing number.
+ 
+	//The sum of the first n natural numbers is given by the formula (n * (n + 1)) / 2.
+//	The idea is to compute this sum and subtract the sum of all elements in the array from it to get the missing number.
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr = {8, 2, 4, 5, 3, 7, 1};
+        System.out.println(missingNum(arr));
+ 
+	}
+	
+	public static int missingNum(int[] arr) {
+        long n = arr.length + 1;   // Because 1 elemtn is missing as arr.length == n-1 numbers
+    
+        // Calculate the sum of array elements
+        long sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+    
+        // Use long for expected sum to avoid overflow
+        long expSum = n * (n + 1) / 2;
+    
+        // Return the missing number
+        int ans = (int)(expSum - sum);
+        
+        return ans;
+    }
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10. Check if Array is Sorted
+Determine if an array is sorted in ascending, descending, or unsorted.
+ 
+public class ArraySoretdOrNot {
+ 
+    static boolean checkAscending(int[] a) {
+ 
+        for (int i = 0; i < a.length - 1; i++) {
+ 
+            if (a[i] != a[i + 1] && a[i] > a[i + 1])
+                return false;
+        }
+        return true;
+    }
+ 
+    static boolean checkDescending(int[] a) {
+        for (int i = 0; i < a.length - 1; i++) {
+            if (a[i] != a[i + 1] && a[i] < a[i + 1])
+                return false;
+        }
+        return true;
+    }
+ 
+    public static void main(String[] args) {
+        int[] a = { 1, 1, 2, 3, 4, 5 };
+        int[] b = { 5, 5, 4, 3, 2, 1 };
+        int[] c = { 1, 2, 5, 2, 1, 1 };
+ 
+        if (checkAscending(c)) {
+            System.out.println("Ascending Array");
+        } else if (checkDescending(c)) {
+            System.out.println("Descending Array");
+        } else {
+            System.out.println("Unsorted Array");
+        }
+    }
+}
+ 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+==========================================================================================================================================================================
+
+==========================================================================================================================================================================
+11.Anagram Checker
+Check if two strings are anagrams of each other.
+ 
+static boolean checkAnagram(String str1, String str2) {
+ 
+        if (str1.length() != str2.length())
+            return false;
+ 
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+ 
+        char[] arr1 = str1.toCharArray();
+        char[] arr2 = str2.toCharArray();
+ 
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+ 
+        if (Arrays.equals(arr1, arr2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+ 
+    public static void main(String[] args) {
+        String str1 = "cat";
+        String str2 = "bat";
+        System.out.println(checkAnagram("listen", "silent")); // true
+        System.out.println(checkAnagram("hello", "ollhe")); // true
+        System.out.println(checkAnagram("hello", "world")); // false
+        System.out.println(checkAnagram("cat", "bat")); // false
+ 
+        // (str1, str2);
+    }
+ 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12. Count Vowels and Consonants
+Count the number of vowels and consonants in a string.
+ 
+public class VowelConsonent {
+ 
+    static void check(String str) {
+        int vcount = 0;
+        int ccount = 0;
+ 
+        str = str.toLowerCase();
+ 
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+ 
+            if (ch >= 'a' && ch <= 'z') {
+                if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+                    vcount++;
+                else
+                    ccount++;
+            }
+ 
+        }
+ 
+        System.out.println("Vowel Count " + vcount);
+        System.out.println("Consonent Count " + ccount);
+ 
+    }
+ 
+    public static void main(String[] args) {
+        String str = "Prathmesh 123!";
+        check(str);
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13. Longest Word in a Sentence
+Find the longest word in a given sentence.
+ 
+package temp;
+import java.util.HashMap;
+import java.util.Map;
+
+public class LongestWord {
+    public static String FrequencyCount(String str) {
+        str = str.toLowerCase(); // remove punctuation
+        String[] arr = str.split(" ");
+        
+        HashMap<String, Integer> map = new HashMap<>();
+
+        // store each word and its length
+        for (int i = 0; i < arr.length; i++) {
+            map.put(arr[i], arr[i].length());
+        }
+
+        // variables to track the longest word
+        String longestWord = "";
+        int maxLength = 0;
+
+        // iterate using forEach
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > maxLength) {
+                maxLength = entry.getValue();
+                longestWord = entry.getKey();
+            }
+        }
+
+        return longetWord;
+    }
+
+    public static void main(String[] args) {
+        String str = "Java is fun, Java is powerful.";
+        FrequencyCount(str);
+    }
+}
+
+ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14. Toggle Case of Each Character
+Convert uppercase letters to lowercase and vice versa.
+ 
+static void toggleChars(char str[])
+	{
+	    for (int i=0; i<str.length; i++)
+	    {
+	        if (str[i]>='A' && str[i]<='Z')
+//	            str[i] = (char) (str[i] + 'a' - 'A');  //convert to lower case
+	            str[i] = Character.toLowerCase(str[i]);
+	        else if (str[i]>='a' && str[i]<='z') {
+//	            str[i] = (char) (str[i] + 'A' - 'a');   //convert to upper case 
+	            str[i] = Character.toUpperCase(str[i]);
+	        }
+	    }
+	}
+
+static String ToggleCase(String str) {
+		String result = "";
+		
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+			
+			if (Character.isUpperCase(ch)) {
+				result += Character.toLowerCase(ch);
+			} 
+			else if (Character.isLowerCase(ch)) {
+				result += Character.toUpperCase(ch);
+			} 
+			else {
+				result += ch;
+			}
+		}
+		return result;
+	}
+ 
+	// Driver code 
+	public static void main(String[] args) 
+	{
+	    char str[] = "GeKf@rGeek$".toCharArray();
+	    toggleChars(str);
+	    System.out.println("String after toggle ");
+	    System.out.println(String.valueOf(str));
+	}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15. Check Pangram
+package temp;
+
+import java.util.HashSet;
+
+public class Pangram {
+
+    static boolean checkPangram(String str) {
+        str = str.toLowerCase();
+        HashSet<Character> set = new HashSet<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (ch >= 'a' && ch <= 'z') {
+                set.add(ch);
+            }
+        }
+
+        System.out.println(set.size());
+
+        if (set.size() == 26) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static void main(String[] args) {
+    	String str = "The quick brown fox jumps over the lazy dogk";
+    	System.out.println(checkPangram(str));
+    }
+}
+
+========================================================================================================================================================================
+16.Armstrong Number Checker
+Check if a number is an Armstrong number (e.g., 153 = 1³ + 5³ + 3³).
+ 
+public class AmstrongNumber {
+ 
+    static boolean checkAmstrong(int no) {
+        int temp = no;
+        int sum = 0;
+ 
+        while (no != 0) {
+            int r = no % 10;
+//find count digit of number and use it as power
+            sum = sum + (r * r * r);
+            no = no / 10;
+        }
+ 
+        if (temp == sum)
+            return true;
+        else
+            return false;
+    }
+ 
+    public static void main(String[] args) {
+        if (checkAmstrong(153))
+            System.out.println("Amstrong Number");
+        else
+            System.out.println("Not Amstrong Number");
+ 
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+17. Generate Fibonacci Series
+Generate the first n numbers in the Fibonacci sequence.
+ 
+public class FibonacchiSeries {
+ 
+    // Function to print N Fibonacci Number
+    static void Fibonacci(int N)
+    {
+        int n1 = 0, n2 = 1;
+
+        for (int i = 0; i < N; i++) {
+            // Print the number
+            System.out.print(n1 + " ");
+
+            // Swap
+            int n3 = n2 + n1;
+            n1 = n2;
+            n2 = n3;
+        }
+    }
+
+    public static void main(String[] args) {
+        Fibonacci(10);
+    }
+}
+ 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+18. Find All Perfect Numbers up to N
+A perfect number is equal to the sum of its proper divisors.
+ 
+public class isPerfectNumber {
+ 
+    public static boolean isPerfectNumber(int no) {
+        int sum = 0;
+ 
+        for (int i = 1; i < no; i++) {
+            if (no % i == 0)
+                sum += i;
+        }
+ 
+        if (sum == no) {
+            return true;
+        }
+ 
+        return false;
+    }
+ 
+    public static void main(String[] args) {
+        int n = 1000;
+ 
+        for (int i = 1; i <= n; i++) {
+            if (isPerfectNumber(i))
+                System.out.print(i + " ");
+        }
+    }
+}
+ 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+19. Convert Decimal to Binary and Vice Versa
+Implement manual conversion without using built-in methods.
+
+package temp;
+
+public class Binary {
+
+	    // Convert Decimal → Binary
+	    public static void decimalToBinary(int num) {
+	        if (num == 0) {
+	            System.out.println("0");
+	            return;
+	        }
+
+	        StringBuilder binary = new StringBuilder();
+
+	        while (num > 0) {
+	            binary.append(num % 2);   //this give binary of lasb 
+	            num /= 2;
+	        }
+
+	        System.out.println(binary.reverse());  //u have to reverse it 
+	    }
+
+	    // Convert Binary → Decimal
+	    public static void BinaryToDecimal(String str) {
+	    	int sum = 0;
+	    	
+	    	for (int i = str.length() - 1; i >= 0; i--) {
+	    		int no = str.charAt(i) - '0';   //convert this into string char to int
+	    		
+	    		sum += no * Math.pow(2, str.length() - i - 1);
+	    	}
+	    	
+	    	System.out.println(sum);
+	    }
+
+	    public static void main(String[] args) {
+	        decimalToBinary(8);    // Output: 1000
+	        BinaryToDecimal("0001"); // Output: 1
+	    }
+	}
+
+=========================================================================================================================================================================
+=========================================================================================================================================================================
+20. Sum of Prime Numbers in a Range
+Sum all prime numbers between two given numbers.
+ 
+public class SumOfPrimeNumber {
+ 
+    public static boolean isPrime(int no) {
+        if (no <= 1)
+            return false;
+ 
+        for (int i = 2; i < no; i++) {
+            if (no % i == 0)
+                return false;
+        }
+ 
+        return true;
+    }
+ 
+    public static void main(String[] args) {
+        int n = 20;
+        int sum = 0;
+ 
+        for (int i = 10; i <= n; i++) {
+            if (isPrime(i)) {
+                sum += i;
+            }
+        }
+ 
+        System.out.println(sum);
+ 
+    }
+}
+========================================================================================================================================================================
+21. Pascal’s Triangle Generator
+Print the first n rows of Pascal’s Triangle.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+22. Find Leader Elements in Array
+An element is a leader if it is greater than all elements to its right.
+ 
+// Function to find the leaders in an array
+    static ArrayList<Integer> leaders(int[] arr) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int n = arr.length;
+        
+        for (int i = 0; i < n; i++) {
+            int j;
+          
+            // Check elements to the right
+            for (j = i + 1; j < n; j++) {
+              
+                // If a larger element is found
+                if (arr[i] < arr[j])
+                    break;
+            }
+            
+            // If no larger element was found
+            if (j == n)
+                result.add(arr[i]);
+        }
+        
+        return result;
+    }
+ 
+    public static void main(String[] args) {
+        int[] arr = { 16, 17, 4, 3, 5, 2 };
+        ArrayList<Integer> result = leaders(arr);
+        
+        for (int res : result) {
+            System.out.print(res + " ");
+        }
+        System.out.println();
+    }
+ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+23. Matrix Transpose
+Transpose a given 2D matrix.
+ 
+public class MatrixTranspose {
+ 
+    public static void main(String[] args) {
+        // Original matrix
+        int[][] originalMatrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+ 
+        // Get dimensions of the original matrix
+        int rows = originalMatrix.length;
+        int cols = originalMatrix[0].length;
+ 
+        // Create a new matrix for the transpose with swapped dimensions
+        int[][] transposedMatrix = new int[cols][rows];
+ 
+        // Perform the transpose operation
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                transposedMatrix[j][i] = originalMatrix[i][j];
+            }
+        }
+ 
+        // Print the original matrix
+        System.out.println("Original Matrix:");
+        printMatrix(originalMatrix);
+ 
+        // Print the transposed matrix
+        System.out.println("\nTransposed Matrix:");
+        printMatrix(transposedMatrix);
+    }
+ 
+    // Helper method to print a matrix
+    public static void printMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+24. Count Frequency of Each Word in a Sentence
+Use loops and maps to count word frequency.
+
+package temp;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+
+public class CountWord {
+
+ // Function to count frequency of
+ // words in the given string
+ static void count_freq(String str)
+ {
+     Map<String,Integer> mp=new TreeMap<>();
+
+     // Splitting to find the word
+     String arr[]=str.split(" ");
+
+     // Loop to iterate over the words
+     for(int i=0;i<arr.length;i++)
+     {
+         // Condition to check if the 
+         // array element is present 
+         // the hash-map
+         if(mp.containsKey(arr[i]))
+         {
+             mp.put(arr[i], mp.get(arr[i])+1);   //If the word already exists in the map → increase its count by 1.
+         }
+         else
+         {
+             mp.put(arr[i],1);                   //If it’s a new word → add it with count = 1. 
+         }
+     }
+    
+     // Loop to iterate over the 
+     // elements of the map
+     for(Map.Entry<String,Integer> entry: 
+                 mp.entrySet())
+     {
+         System.out.println(entry.getKey()+
+                 " - "+entry.getValue());
+     }
+ }
+
+ // Driver Code
+ public static void main(String[] args) {
+     String str = "Geek temp temp ved tap ved For Geeks";
+
+     // Function Call
+     count_freq(str);
+ }
+}
+ 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+25. Check Sudoku Row Validity
+Given a row from a Sudoku puzzle, check if it contains all digits from 1 to 9 without repetition
+=======================================================================================================================================================================
+26.Spiral Matrix Generator
+Problem:
+Given an integer n, generate an n x n matrix filled with numbers from 1 to n^2 in a spiral order 
+(clockwise).
+ 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+27. Password Strength Validator
+Problem:
+Write a program that takes a string input and checks if it qualifies as a strong password. A strong 
+password must:
+• Be at least 8 characters long
+• Contain at least one uppercase letter
+• Contain at least one lowercase letter
+• Contain at least one digit
+• Contain at least one special character (e.g., !@#$%^&*())
+
+package temp;
+
+public class validPassword {
+
+    public static boolean isValidPassword(String str) {
+        boolean isUpperCasePresent = false;
+        boolean isLowerCasePresent = false;
+        boolean isDigitPresent = false;
+        boolean isSpecialCharacterPresent = false;
+
+        String specialCharacters = "!@#$%^&*()+";
+
+        if (str.length() < 8)
+            return false;
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if (Character.isUpperCase(ch))
+                isUpperCasePresent = true;
+            else if (Character.isLowerCase(ch))
+                isLowerCasePresent = true;
+            else if (Character.isDigit(ch))
+                isDigitPresent = true;
+            else if (specialCharacters.contains(ch + ""))   //ch + "" converts char to string
+                isSpecialCharacterPresent = true;
+        }
+
+        return isUpperCasePresent && isLowerCasePresent
+                && isSpecialCharacterPresent && isDigitPresent;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isValidPassword("Hello+123")); // true
+        System.out.println(isValidPassword("Hello123"));  // false (no special character)
+        System.out.println(isValidPassword("hello+123")); // false (no uppercase)
+        System.out.println(isValidPassword("HELLO+123")); // false (no lowercase)
+        System.out.println(isValidPassword("Hello+12"));  // true
+    }
+}
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+28.Number Pyramid Pattern
+Problem:
+Generate a pyramid pattern of numbers for a given input n. For example, if n = 4, output:
+       1
+      2 3
+     4 5 6
+    7 8 9 10
+
+public class NumberPyramidPattern {
+ 
+    public static void Pyrimid(int n) {
+ 
+        int no = 1;
+ 
+        for (int i = 1; i <= n; i++) {
+ 
+            for (int j = i; j < n; j++) {
+                System.out.print(" ");
+            }
+ 
+            for (int k = 1; k <= i; k++) {
+                System.out.print(no + " ");
+                no++;
+            }
+            System.out.println();
+        }
+    }
+ 
+    public static void main(String[] args) {
+        int n = 4;
+        Pyrimid(n);
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+29.Digit Frequency Counter
+Problem:
+Take an integer input and count the frequency of each digit (0–9) in it. For example, input 1223334444 
+should output:
+1 Digit 1: 1 time
+2 Digit 2: 2 times
+3 Digit 3: 3 times
+4 Digit 4: 4 times
+ 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class DigitFrequencyCounter {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        
+        int number = in.nextInt();
+        in.close();
+
+        // Convert number to string for easy iteration
+        String str = String.valueOf(number);
+
+        // Use HashMap to count frequency of digits
+        Map<Character, Integer> frequencyMap = new HashMap<>();
+
+        for (char ch : str.toCharArray()) {
+            frequencyMap.put(ch, frequencyMap.getOrDefault(ch, 0) + 1);  //getordefault(ch,0) if get is used first time then default vlue if used after that it will use ch only
+        }
+//You cAN USE THIS ANOTHER APPROACH FOR LOOP
+ //for (char ch : str.toCharArray()) {
+ //           Integer count = frequencyMap.get(ch);
+ //           if (count == null) {
+ //               frequencyMap.put(ch, 1);
+ //           } else {
+ //              frequencyMap.put(ch, count + 1);
+ //            }
+ //       }
+
+        // Display digit frequencies
+        System.out.println("Digit frequencies:");
+        frequencyMap.forEach((digit, count) -> System.out.println(digit + " → " + count));
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+30. Magic Square Validator
+Problem:
+Write a program that checks whether a given n x n matrix is a magic square. A magic square is a grid 
+where the sum of every row, column, and both diagonals is the same
+ 
