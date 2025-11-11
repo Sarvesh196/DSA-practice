@@ -1,0 +1,295 @@
+-- Create Customers Table
+ 
+create database Sample;
+use Sample;
+ 
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    City VARCHAR(100)
+);
+ 
+-- Insert Data into Customers
+INSERT INTO Customers (CustomerID, CustomerName, City) VALUES
+(1, 'Customer_1', 'New York'),
+(2, 'Customer_2', 'New York'),
+(3, 'Customer_3', 'New York'),
+(4, 'Customer_4', 'Chicago'),
+(5, 'Customer_5', 'Chicago'),
+(6, 'Customer_6', 'New York'),
+(7, 'Customer_7', 'New York'),
+(8, 'Customer_8', 'New York'),
+(9, 'Customer_9', 'New York'),
+(10, 'Customer_10', 'Chicago'),
+(11, 'Customer_11', 'Houston'),
+(12, 'Customer_12', 'Phoenix'),
+(13, 'Customer_13', 'Houston'),
+(14, 'Customer_14', 'Chicago'),
+(15, 'Customer_15', 'Chicago'),
+(16, 'Customer_16', 'Phoenix'),
+(17, 'Customer_17', 'Houston'),
+(18, 'Customer_18', 'Chicago'),
+(19, 'Customer_19', 'Los Angeles'),
+(20, 'Customer_20', 'Phoenix'),
+(21, 'Customer_21', 'Chicago'),
+(22, 'Customer_22', 'Los Angeles'),
+(23, 'Customer_23', 'Phoenix'),
+(24, 'Customer_24', 'New York'),
+(25, 'Customer_25', 'Houston');
+ 
+ 
+-- Create Products Table
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Price DECIMAL(10,2)
+);
+ 
+-- Insert Data into Products
+INSERT INTO Products (ProductID, ProductName, Price) VALUES
+(1, 'Product_1', 29.75),
+(2, 'Product_2', 12.86),
+(3, 'Product_3', 19.00),
+(4, 'Product_4', 68.60),
+(5, 'Product_5', 77.10),
+(6, 'Product_6', 29.08),
+(7, 'Product_7', 25.74),
+(8, 'Product_8', 37.62),
+(9, 'Product_9', 59.06),
+(10, 'Product_10', 98.14),
+(11, 'Product_11', 38.13),
+(12, 'Product_12', 90.97),
+(13, 'Product_13', 17.88),
+(14, 'Product_14', 70.26),
+(15, 'Product_15', 24.75),
+(16, 'Product_16', 85.02),
+(17, 'Product_17', 28.75),
+(18, 'Product_18', 74.40),
+(19, 'Product_19', 71.02),
+(20, 'Product_20', 23.62),
+(21, 'Product_21', 29.79),
+(22, 'Product_22', 31.25),
+(23, 'Product_23', 96.69),
+(24, 'Product_24', 77.87),
+(25, 'Product_25', 34.99);
+ 
+ 
+-- Create Orders Table
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    ProductID INT,
+    OrderDate DATE,
+    Quantity INT,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+ 
+-- Insert Data into Orders
+INSERT INTO Orders (OrderID, CustomerID, ProductID, OrderDate, Quantity) VALUES
+(1, 12, 1, '2025-09-30', 5),
+(2, 7, 2, '2025-03-29', 4),
+(3, 6, 13, '2025-01-24', 5),
+(4, 3, 5, '2025-05-10', 3),
+(5, 17, 9, '2025-08-15', 1),
+(6, 19, 17, '2024-11-13', 4),
+(7, 16, 14, '2025-09-19', 4),
+(8, 21, 16, '2024-11-10', 4),
+(9, 18, 5, '2025-02-23', 2),
+(10, 25, 20, '2025-02-20', 5),
+(11, 18, 20, '2025-01-02', 4),
+(12, 25, 1, '2025-06-17', 5),
+(13, 18, 8, '2025-05-12', 2),
+(14, 12, 16, '2025-10-31', 3),
+(15, 20, 4, '2024-11-16', 3),
+(16, 9, 16, '2025-02-04', 1),
+(17, 6, 18, '2024-11-11', 1),
+(18, 18, 18, '2025-03-24', 3),
+(19, 14, 13, '2025-08-28', 1),
+(20, 21, 14, '2024-12-28', 4),
+(21, 1, 9, '2025-08-12', 4),
+(22, 2, 12, '2024-12-24', 5),
+(23, 17, 14, '2025-05-22', 2),
+(24, 25, 25, '2024-12-28', 2),
+(25, 5, 17, '2025-10-03', 1);
+ 
+ 
+ 
+-- List all orders with customer names and product names
+ 
+select orderid , customername , productname from orders
+INNER JOIN customers on customers.customerid = orders.customerid
+INNER JOIN products on products.productid = orders.productid;
+ 
+-- Find all customers who placed an order for "Product_14".
+select orderid , customername , productname from orders
+INNER JOIN customers on customers.customerid = orders.customerid
+INNER JOIN products on products.productid = orders.productid
+where productname = 'Product_14';
+ 
+-- Show total quantity ordered per customer.
+ 
+select customername , SUM(orders.quantity) as TotalOrders from orders
+INNER JOIN customers on customers.customerid = orders.customerid
+INNER JOIN products on products.productid = orders.productid
+group by customername;
+ 
+-- List customers who have never placed an order.
+ 
+select customername   from customers
+LEFT JOIN orders on customers.customerid = orders.customerid
+where orders.orderid is null;
+ 
+-- Find products that have never been ordered.
+select productname from products
+LEFT JOIN orders on products.productid = orders.productid
+where orders.orderid is null;
+ 
+-- Show total revenue per product (Price × Quantity).
+ 
+select productname , SUM(Price * Quantity) as Total_Revenue from products
+INNER JOIN orders
+on products.productid = orders.productid
+Group by productname;
+ 
+-- List orders placed in the last 90 days with customer and product details.
+ 
+select orderid , customername , productname from orders
+INNER JOIN customers on customers.customerid = orders.customerid
+INNER JOIN products on products.productid = orders.productid
+where datediff(now(), orderdate) <= 90;
+ 
+-- Find the most frequently ordered product.
+ 
+select productname , COUNT(products.productid) as Total_Orders from products
+INNER JOIN orders on products.productid = orders.productid
+group by productname
+order by Total_Orders DESC
+LIMIT 1;
+ 
+-- Show customers who ordered more than 3 different products
+ 
+select customername , count(distinct orders.productid) as TotalOrders from customers
+INNER JOIN orders on customers.customerid = orders.customerid
+group by customername
+having TotalOrders >= 3;
+ 
+-- List cities with total number of orders placed.
+ 
+select city , count(orderid) as Total_Orders from customers
+INNER JOIN orders on customers.customerid = orders.customerid
+group by city;
+ 
+-- Find customers who ordered products priced above 50.
+ 
+select customername , productname , price from orders
+INNER JOIN customers on customers.customerid = orders.customerid
+INNER JOIN products on products.productid = orders.productid
+where price > 50;
+ 
+-- Show products ordered by customers from "Chicago".
+ 
+select customername , productname , city from orders
+INNER JOIN customers on customers.customerid = orders.customerid
+INNER JOIN products on products.productid = orders.productid
+where city = 'Chicago';
+ 
+-- List customers who ordered the same product more than once.
+ 
+select customername , orders.productid , count(*) as total_orders from customers
+INNER JOIN orders on customers.customerid = orders.customerid
+group by customername , orders.productid
+having total_orders > 1;
+ 
+-- Show the latest order date for each customer.
+ 
+Select customername , MAX(orders.orderdate) as Recent_Order from customers
+INNER JOIN orders on customers.customerid = orders.customerid
+group by customername;
+ 
+-- Find the top 3 customers by total spending.
+ 
+select customername , SUM(price * quantity) as Total_Spending from orders
+INNER JOIN customers on customers.customerid = orders.customerid
+INNER JOIN products on products.productid = orders.productid
+group by customername
+order by Total_Spending desc
+LIMIT 3;
+ 
+-- List products ordered by more than 5 different customers.
+ 
+select productname , COUNT(distinct orders.customerid) as Total_customers from orders
+INNER JOIN products on products.productid = orders.productid
+group by productname
+having Total_customers > 5;
+ 
+-- Show average quantity ordered per product.
+ 
+select productname , avg(orders.quantity) as avg_quantity from products
+INNER JOIN orders on products.productid = orders.productid
+group by productname;
+ 
+-- Find customers who ordered both "Product_1" and "Product_25".
+ 
+select customername from orders
+INNER JOIN customers on customers.customerid = orders.customerid
+INNER JOIN products on products.productid = orders.productid
+where products.productname in ('Product_1' , 'Product_25')
+group by customername
+having COUNT(distinct products.productname) = 2;
+ 
+-- List all orders with product price and total cost.
+ 
+select orderid , price , (price * quantity) as Total_Cost from products
+INNER JOIN orders on products.productid = orders.productid;
+ 
+ 
+-- Find customers who placed the highest quantity order.
+ 
+select customername from customers
+INNER JOIN orders on customers.customerid = orders.customerid
+where quantity = (select MAX(quantity) from orders) 
+group by customername ;
+ 
+-- List products with price above the average product price.
+ 
+select * from products where price > (select avg(price) from products);
+ 
+-- Find the most expensive product ordered.
+ 
+select productname from products 
+INNER JOIN orders on products.productid = orders.productid
+where price = (
+	select MAX(price) from products
+    INNER JOIN Orders on products.productid = orders.productid
+);
+ 
+ 
+-- List customers who ordered the cheapest product.
+ 
+select productname from products 
+INNER JOIN orders on products.productid = orders.productid
+where price = (
+	select MIN(price) from products
+    INNER JOIN Orders on products.productid = orders.productid
+);
+ 
+-- Show customers whose total spending is above the average spending.
+ 
+with EmplyeeTotalSpending as (
+	select 	customername  , SUM(price * quantity) as TotalSpending from orders
+	INNER JOIN 	customers on customers.customerid = orders.customerid
+	INNER JOIN  products on products.productid = orders.productid
+	group by customername
+) 
+Select customername , TotalSpending from EmplyeeTotalSpending 
+where 
+TotalSpending > (select avg(TotalSpending) from EmplyeeTotalSpending);
+ 
+select * from customers;
+select * from orders;
+select * from products;
+ 
+-- Show customers who ordered products from multiple cities (if product location is added later). (Skipped)
+ 
+-- End of Queries -
